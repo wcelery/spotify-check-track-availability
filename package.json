@@ -16,6 +16,7 @@
     "react-icons": "^3.11.0",
     "react-scripts": "4.0.1",
     "spotify-web-api-js": "^1.5.1",
+    "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
