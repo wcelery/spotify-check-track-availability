@@ -39,7 +39,7 @@ function App() {
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack justifyItems="left" spacing={8}>
+          <VStack spacing={8}>
             <h1>test</h1>
             <Form setDetails={setDetails} />
             <Details data={details} />
