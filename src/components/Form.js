@@ -6,14 +6,21 @@ import {
   FormControl,
   Input,
   Button,
+  HStack,
 } from '@chakra-ui/react';
+import SpotifyWebApi from 'spotify-web-api-js';
 
-export default function Form({ setTrackId }) {
+export default function Form({ setDetails }) {
   const { handleSubmit, errors, register, formState } = useForm();
+
+  let s = new SpotifyWebApi();
 
   const onSubmit = data => {
     const trackId = data.field.slice(14);
-    setTrackId(trackId);
+    s.getTrack(trackId).then(
+      data => setDetails(data),
+      err => console.error(err)
+    );
   };
 
   function validateInput(value) {
@@ -26,18 +33,25 @@ export default function Form({ setTrackId }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={errors.field}>
-        <FormLabel htmlFor="field">
-          Enter a Spotify URI link of track you searching for
-        </FormLabel>
-        <Input name="field" ref={register({ validate: validateInput })} />
-        <FormErrorMessage>
-          {errors.field && errors.field.message}
-        </FormErrorMessage>
-      </FormControl>
-      <Button type="submit" size="md" isLoading={formState.isSubmitting}>
-        Search
-      </Button>
+      <HStack>
+        <FormControl isInvalid={errors.field}>
+          <FormLabel htmlFor="field">
+            Enter a Spotify URI link of track you searching for
+          </FormLabel>
+          <Input name="field" ref={register({ validate: validateInput })} />
+          <FormErrorMessage>
+            {errors.field && errors.field.message}
+          </FormErrorMessage>
+        </FormControl>
+        <Button
+          type="submit"
+          size="md"
+          colorScheme="teal"
+          isLoading={formState.isSubmitting}
+        >
+          Search
+        </Button>
+      </HStack>
     </form>
   );
 }

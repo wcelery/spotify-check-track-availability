@@ -6,11 +6,10 @@ import Form from './components/Form';
 import Details from './components/Details';
 
 function App() {
-  const [trackId, setTrackId] = useState();
   const [details, setDetails] = useState();
 
   React.useEffect(() => {
-    requestToken();
+    requestToken(); // eslint-disable-next-line
   }, []);
 
   let s = new SpotifyWebApi();
@@ -35,25 +34,14 @@ function App() {
     return;
   }
 
-  s.getTrack(trackId).then(
-    /* data => setDetails(data),
-    err => console.error(err) */
-    function (data) {
-      console.log(data);
-    },
-    function (err) {
-      console.log(err);
-    }
-  );
-
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
+          <VStack justifyContent="left" spacing={8}>
             <h1>test</h1>
-            <Form setTrackId={setTrackId} />
+            <Form setDetails={setDetails} />
             <Details data={details} />
           </VStack>
         </Grid>
