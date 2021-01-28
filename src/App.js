@@ -31,8 +31,7 @@ function App() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization:
-          'Basic MzdkN2U0YzZlZDdkNDFkMjhmZjdjMDdjMzM0MzI2NTk6ZDE1NTliYWZhYmQ3NDBiZmEwMDgwMzBiZWJmMmUwMzM=',
+        Authorization: `Basic ${process.env.REACT_APP_SECRET_TOKEN}`,
       },
       body: 'grant_type=client_credentials',
     };
