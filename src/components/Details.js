@@ -11,7 +11,8 @@ import {
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
-import { isoCountries } from '../countryCodes';
+import { isoCountries } from '../conf/countryCodes';
+import Description from './Description';
 
 export default function Details({ data }) {
   function getCountryName(countryCode) {
@@ -28,14 +29,14 @@ export default function Details({ data }) {
         <Box
           borderWidth="1px"
           borderRadius="lg"
-          w="3xl"
+          w="2xl"
           padding={10}
           textAlign="left"
         >
           <Stack spacing={8}>
             <Heading fontSize="xl">
               You searched for: {data.artists.map(a => `${a.name} `)} -{' '}
-              {/* prettier was made this mess, not me ------------------^ */}
+              {/* prettier has made this mess, not me ------------------^ */}
               {data.name}
             </Heading>
             {data.available_markets.length ? (
@@ -44,7 +45,7 @@ export default function Details({ data }) {
                 countries:
               </Text>
             ) : (
-              <Text>It is not available</Text>
+              <Text>This track is not available</Text>
             )}
             <List spacing={1}>
               {data.available_markets.map(code => (
@@ -58,5 +59,7 @@ export default function Details({ data }) {
         </Box>
       </Fade>
     </div>
-  ) : null;
+  ) : (
+    <Description />
+  );
 }

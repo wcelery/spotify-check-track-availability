@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
-import { ChakraProvider, Box, VStack, Grid, theme } from '@chakra-ui/react';
+import {
+  ChakraProvider,
+  extendTheme,
+  Box,
+  VStack,
+  Grid,
+  Heading,
+  Flex,
+  Spacer,
+} from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import SpotifyWebApi from 'spotify-web-api-js';
+import { themeConf } from './conf/themeConf';
 import Form from './components/Form';
 import Details from './components/Details';
 
@@ -13,6 +23,8 @@ function App() {
   }, []);
 
   let s = new SpotifyWebApi();
+
+  const theme = extendTheme(themeConf);
 
   async function requestToken() {
     const requestOptions = {
@@ -36,11 +48,18 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
+      <Box textAlign="left" fontSize="xl">
+        <Flex>
+          <Box p="2" m={6}>
+            <Heading size="md">Check Track Availability</Heading>
+          </Box>
+          <Spacer />
+          <Box m={6}>
+            <ColorModeSwitcher justifySelf="flex-end" />
+          </Box>
+        </Flex>
+        <Grid minH="80vh" p={3}>
           <VStack spacing={8}>
-            <h1>test</h1>
             <Form setDetails={setDetails} />
             <Details data={details} />
           </VStack>

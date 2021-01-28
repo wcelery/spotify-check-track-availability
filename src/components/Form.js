@@ -11,7 +11,7 @@ import {
 import SpotifyWebApi from 'spotify-web-api-js';
 
 export default function Form({ setDetails }) {
-  const { handleSubmit, errors, register, formState } = useForm();
+  const { handleSubmit, errors, register, formState, reset } = useForm();
 
   let s = new SpotifyWebApi();
 
@@ -21,6 +21,7 @@ export default function Form({ setDetails }) {
       data => setDetails(data),
       err => console.error(err)
     );
+    reset();
   };
 
   function validateInput(value) {
@@ -33,25 +34,25 @@ export default function Form({ setDetails }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <HStack>
-        <FormControl isInvalid={errors.field}>
-          <FormLabel htmlFor="field">
-            Enter a Spotify URI link of track you searching for
-          </FormLabel>
+      <FormControl isInvalid={errors.field}>
+        <FormLabel htmlFor="field">
+          Enter a Spotify URI link of track you searching for
+        </FormLabel>
+        <HStack>
           <Input name="field" ref={register({ validate: validateInput })} />
-          <FormErrorMessage>
-            {errors.field && errors.field.message}
-          </FormErrorMessage>
-        </FormControl>
-        <Button
-          type="submit"
-          size="md"
-          colorScheme="teal"
-          isLoading={formState.isSubmitting}
-        >
-          Search
-        </Button>
-      </HStack>
+          <Button
+            type="submit"
+            size="md"
+            colorScheme="teal"
+            isLoading={formState.isSubmitting}
+          >
+            Search
+          </Button>
+        </HStack>
+        <FormErrorMessage>
+          {errors.field && errors.field.message}
+        </FormErrorMessage>
+      </FormControl>
     </form>
   );
 }
