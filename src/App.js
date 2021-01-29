@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import {
   ChakraProvider,
   extendTheme,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CloseButton,
   Box,
   VStack,
   Grid,
@@ -17,6 +22,7 @@ import Details from './components/Details';
 
 function App() {
   const [details, setDetails] = useState();
+  const [isError, setError] = useState();
 
   React.useEffect(() => {
     requestToken(); // eslint-disable-next-line
@@ -40,8 +46,13 @@ function App() {
       'https://accounts.spotify.com/api/token',
       requestOptions
     );
-    const data = await response.json();
-    s.setAccessToken(data.access_token);
+    if (response.ok) {
+      const data = await response.json();
+      s.setAccessToken(data.access_token);
+    } else {
+      setError(response.status);
+    }
+
     return;
   }
 
@@ -61,6 +72,23 @@ function App() {
           <VStack spacing={8}>
             <Form setDetails={setDetails} />
             <Details data={details} />
+            {isError ? (
+              <Alert w={[300, 400, 560]} status="error">
+                <AlertIcon />
+                <AlertTitle fontSize="md" mr={2}>
+                  An error has occured!
+                </AlertTitle>
+                <AlertDescription fontSize="md">
+                  Error code: {isError}
+                </AlertDescription>
+                <CloseButton
+                  onClick={() => setError('')}
+                  position="absolute"
+                  right="8px"
+                  top="8px"
+                />
+              </Alert>
+            ) : null}
           </VStack>
         </Grid>
       </Box>
