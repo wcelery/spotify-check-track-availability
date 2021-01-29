@@ -29,7 +29,7 @@ export default function Details({ data }) {
         <Box
           borderWidth="1px"
           borderRadius="lg"
-          w="2xl"
+          w={[300, 400, 560]}
           padding={10}
           textAlign="left"
         >
