@@ -7,7 +7,7 @@ Usage:
 ### 3. `npm i`
 ### 4. `npm start`
 
-## Or just use the demo
+## Or just use demo
 
 Made with:
 + React Hooks
