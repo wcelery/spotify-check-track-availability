@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   FormErrorMessage,
@@ -7,11 +7,17 @@ import {
   Input,
   Button,
   HStack,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CloseButton,
 } from '@chakra-ui/react';
 import SpotifyWebApi from 'spotify-web-api-js';
 
 export default function Form({ setDetails }) {
   const { handleSubmit, errors, register, formState, reset } = useForm();
+  const [error, setError] = useState();
 
   let s = new SpotifyWebApi();
 
@@ -19,7 +25,10 @@ export default function Form({ setDetails }) {
     const trackId = data.field.slice(14);
     s.getTrack(trackId).then(
       data => setDetails(data),
-      err => console.error(err)
+      err => {
+        const errData = JSON.parse(err.response);
+        setError(errData.error);
+      }
     );
     reset();
   };
@@ -34,7 +43,7 @@ export default function Form({ setDetails }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={errors.field}>
+      <FormControl isInvalid={errors.field} pb={2}>
         <FormLabel htmlFor="field">
           Enter a Spotify URI link of track you searching for
         </FormLabel>
@@ -53,6 +62,23 @@ export default function Form({ setDetails }) {
           {errors.field && errors.field.message}
         </FormErrorMessage>
       </FormControl>
+      {error ? (
+        <Alert w={[300, 400, 560]} status="error">
+          <AlertIcon />
+          <AlertTitle fontSize="md" mr={2}>
+            An error has occured!
+          </AlertTitle>
+          <AlertDescription fontSize="md">
+            {error.status}: {error.message}
+          </AlertDescription>
+          <CloseButton
+            onClick={() => setError('')}
+            position="absolute"
+            right="8px"
+            top="8px"
+          />
+        </Alert>
+      ) : null}
     </form>
   );
 }

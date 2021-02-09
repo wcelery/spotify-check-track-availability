@@ -22,7 +22,7 @@ import Details from './components/Details';
 
 function App() {
   const [details, setDetails] = useState();
-  const [isError, setError] = useState();
+  const [isError, setError] = useState(false);
 
   React.useEffect(() => {
     requestToken(); // eslint-disable-next-line
