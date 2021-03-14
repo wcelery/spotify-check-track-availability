@@ -26,11 +26,11 @@ interface IData {
   expires_in: number;
 }
 
-interface IArtists {
+export type IArtists = {
   name: string;
-}
+};
 
-interface IDetails {
+export interface IDetails {
   artists: IArtists[];
   available_markets: Array<string>;
   name: string;
@@ -87,7 +87,7 @@ function App() {
         <Grid minH="80vh" p={3}>
           <VStack spacing={8}>
             <Form setDetails={setDetails} />
-            <Details data={details} />
+            <Details details={details} />
             {error ? (
               <Alert w={[300, 400, 560]} status="error">
                 <AlertIcon />
