@@ -20,9 +20,25 @@ import { themeConf } from './conf/themeConf';
 import Form from './components/Form';
 import Details from './components/Details';
 
+interface IData {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+}
+
+interface IArtists {
+  name: string;
+}
+
+interface IDetails {
+  artists: IArtists[];
+  available_markets: Array<string>;
+  name: string;
+}
+
 function App() {
-  const [details, setDetails] = useState();
-  const [isError, setError] = useState(false);
+  const [details, setDetails] = useState<IDetails>();
+  const [error, setError] = useState(0);
 
   React.useEffect(() => {
     requestToken(); // eslint-disable-next-line
@@ -47,7 +63,7 @@ function App() {
       requestOptions
     );
     if (response.ok) {
-      const data = await response.json();
+      const data: IData = await response.json();
       s.setAccessToken(data.access_token);
     } else {
       setError(response.status);
@@ -72,17 +88,17 @@ function App() {
           <VStack spacing={8}>
             <Form setDetails={setDetails} />
             <Details data={details} />
-            {isError ? (
+            {error ? (
               <Alert w={[300, 400, 560]} status="error">
                 <AlertIcon />
                 <AlertTitle fontSize="md" mr={2}>
                   An error has occured!
                 </AlertTitle>
                 <AlertDescription fontSize="md">
-                  Error code: {isError}
+                  Error code: {error}
                 </AlertDescription>
                 <CloseButton
-                  onClick={() => setError('')}
+                  onClick={() => setError(0)}
                   position="absolute"
                   right="8px"
                   top="8px"
