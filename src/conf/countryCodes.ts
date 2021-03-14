@@ -1,4 +1,8 @@
-export let isoCountries = {
+export interface Countries {
+  [key: string]: string;
+}
+
+export const isoCountries: Countries = {
   AF: 'Afghanistan',
   AX: 'Aland Islands',
   AL: 'Albania',

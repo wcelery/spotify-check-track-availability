@@ -12,10 +12,11 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
 import { isoCountries } from '../conf/countryCodes';
+import { IArtists, IDetails } from '../App';
 import Description from './Description';
 
-export default function Details({ data }) {
-  function getCountryName(countryCode) {
+export default function Details({ ...details }: IDetails) {
+  function getCountryName(countryCode: string) {
     if (isoCountries.hasOwnProperty(countryCode)) {
       return isoCountries[countryCode];
     } else {
@@ -23,9 +24,9 @@ export default function Details({ data }) {
     }
   }
 
-  return data ? (
+  return details ? (
     <div className="result-container">
-      <Fade in={data}>
+      <Fade in={details ? true : false}>
         <Box
           borderWidth="1px"
           borderRadius="lg"
@@ -35,20 +36,21 @@ export default function Details({ data }) {
         >
           <Stack spacing={8}>
             <Heading fontSize="xl">
-              You searched for: {data.artists.map(a => `${a.name} `)} -{' '}
+              You searched for:{' '}
+              {details.artists.map((a: IArtists) => `${a.name} `)} -{' '}
               {/* prettier has made this mess, not me ------------------^ */}
-              {data.name}
+              {details.name}
             </Heading>
-            {data.available_markets.length ? (
+            {details.available_markets.length ? (
               <Text>
-                It is available in {data.available_markets.length} following
+                It is available in {details.available_markets.length} following
                 countries:
               </Text>
             ) : (
               <Text>This track is not available</Text>
             )}
             <List spacing={1}>
-              {data.available_markets.map(code => (
+              {details.available_markets.map(code => (
                 <ListItem key={uuidv4()} fontSize="16px">
                   <ListIcon as={VscDebugStackframeDot} color="green.200" />
                   {getCountryName(code)}

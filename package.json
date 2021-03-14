@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.3",
+    "@types/uuid": "^8.3.0",
     "type-coverage": "^2.16.3"
   }
 }
