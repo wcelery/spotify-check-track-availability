@@ -30,14 +30,18 @@ export type IArtists = {
   name: string;
 };
 
-export interface IDetails {
+export type IDetails = {
   artists: IArtists[];
   available_markets: Array<string>;
   name: string;
+};
+
+export interface IDetailsProp {
+  details: IDetails;
 }
 
 function App() {
-  const [details, setDetails] = useState<IDetails>();
+  const [details, setDetails] = useState<IDetailsProp>();
   const [error, setError] = useState(0);
 
   React.useEffect(() => {
@@ -87,7 +91,7 @@ function App() {
         <Grid minH="80vh" p={3}>
           <VStack spacing={8}>
             <Form setDetails={setDetails} />
-            <Details details={details} />
+            <Details dfggd={details} />
             {error ? (
               <Alert w={[300, 400, 560]} status="error">
                 <AlertIcon />

@@ -12,10 +12,10 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
 import { isoCountries } from '../conf/countryCodes';
-import { IArtists, IDetails } from '../App';
+import { IArtists, IDetailsProp } from '../App';
 import Description from './Description';
 
-export default function Details({ ...details }: IDetails) {
+export default function Details({ details }: IDetailsProp) {
   function getCountryName(countryCode: string) {
     if (isoCountries.hasOwnProperty(countryCode)) {
       return isoCountries[countryCode];
@@ -23,6 +23,8 @@ export default function Details({ ...details }: IDetails) {
       return countryCode;
     }
   }
+
+  console.log(details);
 
   return details ? (
     <div className="result-container">
