@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Fade,
   Box,
@@ -12,7 +11,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
 import { isoCountries } from '../conf/countryCodes';
-import { IArtists, IDetailsProp } from '../App';
+import { TArtists, IDetailsProp } from '../App';
 import Description from './Description';
 
 export default function Details({ details }: IDetailsProp) {
@@ -39,7 +38,7 @@ export default function Details({ details }: IDetailsProp) {
           <Stack spacing={8}>
             <Heading fontSize="xl">
               You searched for:{' '}
-              {details.artists.map((a: IArtists) => `${a.name} `)} -{' '}
+              {details.artists.map((a: TArtists) => `${a.name} `)} -{' '}
               {/* prettier has made this mess, not me ------------------^ */}
               {details.name}
             </Heading>

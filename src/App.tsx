@@ -26,22 +26,26 @@ interface IData {
   expires_in: number;
 }
 
-export type IArtists = {
+export type TArtists = {
   name: string;
 };
 
-export type IDetails = {
-  artists: IArtists[];
+export type TDetails = {
+  artists: TArtists[];
   available_markets: Array<string>;
   name: string;
 };
 
+export type TSetDetails = {
+  setDetails: (details: SpotifyApi.SingleTrackResponse) => void;
+};
+
 export interface IDetailsProp {
-  details: IDetails;
+  details: TDetails | undefined;
 }
 
 function App() {
-  const [details, setDetails] = useState<IDetailsProp>();
+  const [details, setDetails] = useState<TDetails>();
   const [error, setError] = useState(0);
 
   React.useEffect(() => {
@@ -91,7 +95,7 @@ function App() {
         <Grid minH="80vh" p={3}>
           <VStack spacing={8}>
             <Form setDetails={setDetails} />
-            <Details dfggd={details} />
+            <Details details={details} />
             {error ? (
               <Alert w={[300, 400, 560]} status="error">
                 <AlertIcon />
