@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import {
   ChakraProvider,
   extendTheme,
@@ -26,26 +26,28 @@ interface IData {
   expires_in: number;
 }
 
-export type TArtists = {
+/* export type TArtists = {
   name: string;
-};
+}; */
 
-export type TDetails = {
+/* export type TDetails = {
   artists: TArtists[];
   available_markets: Array<string>;
   name: string;
-};
+}; */
 
 export type TSetDetails = {
-  setDetails: (details: SpotifyApi.SingleTrackResponse) => void;
+  setDetails: Dispatch<
+    SetStateAction<SpotifyApi.SingleTrackResponse | undefined>
+  >;
 };
 
 export interface IDetailsProp {
-  details: TDetails | undefined;
+  details: SpotifyApi.SingleTrackResponse | undefined;
 }
 
 function App() {
-  const [details, setDetails] = useState<TDetails>();
+  const [details, setDetails] = useState<SpotifyApi.SingleTrackResponse>();
   const [error, setError] = useState(0);
 
   React.useEffect(() => {

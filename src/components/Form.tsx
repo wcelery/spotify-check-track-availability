@@ -16,9 +16,14 @@ import {
 import SpotifyWebApi from 'spotify-web-api-js';
 import { TSetDetails } from '../App';
 
+interface IError {
+  status: number;
+  message: string;
+}
+
 export default function Form({ setDetails }: TSetDetails) {
   const { handleSubmit, errors, register, formState, reset } = useForm();
-  const [error, setError] = useState();
+  const [error, setError] = useState<IError>();
 
   let s = new SpotifyWebApi();
 
@@ -73,7 +78,7 @@ export default function Form({ setDetails }: TSetDetails) {
             {error.status}: {error.message}
           </AlertDescription>
           <CloseButton
-            onClick={() => setError('')}
+            onClick={() => setError(undefined)}
             position="absolute"
             right="8px"
             top="8px"

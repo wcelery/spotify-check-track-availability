@@ -11,7 +11,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
 import { isoCountries } from '../conf/countryCodes';
-import { TArtists, IDetailsProp } from '../App';
+import { IDetailsProp } from '../App';
 import Description from './Description';
 
 export default function Details({ details }: IDetailsProp) {
@@ -22,8 +22,6 @@ export default function Details({ details }: IDetailsProp) {
       return countryCode;
     }
   }
-
-  console.log(details);
 
   return details ? (
     <div className="result-container">
@@ -37,12 +35,11 @@ export default function Details({ details }: IDetailsProp) {
         >
           <Stack spacing={8}>
             <Heading fontSize="xl">
-              You searched for:{' '}
-              {details.artists.map((a: TArtists) => `${a.name} `)} -{' '}
+              You searched for: {details.artists.map(a => `${a.name} `)} -{' '}
               {/* prettier has made this mess, not me ------------------^ */}
               {details.name}
             </Heading>
-            {details.available_markets.length ? (
+            {details.available_markets?.length ? (
               <Text>
                 It is available in {details.available_markets.length} following
                 countries:
@@ -51,7 +48,7 @@ export default function Details({ details }: IDetailsProp) {
               <Text>This track is not available</Text>
             )}
             <List spacing={1}>
-              {details.available_markets.map(code => (
+              {details.available_markets?.map(code => (
                 <ListItem key={uuidv4()} fontSize="16px">
                   <ListIcon as={VscDebugStackframeDot} color="green.200" />
                   {getCountryName(code)}
