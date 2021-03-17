@@ -23,7 +23,7 @@ interface IError {
 
 export default function Form({ setDetails }: TSetDetails) {
   const { handleSubmit, errors, register, formState, reset } = useForm();
-  const [error, setError] = useState<IError>();
+  const [error, setError] = useState<IError | null>();
 
   let s = new SpotifyWebApi();
 
@@ -78,7 +78,7 @@ export default function Form({ setDetails }: TSetDetails) {
             {error.status}: {error.message}
           </AlertDescription>
           <CloseButton
-            onClick={() => setError(undefined)}
+            onClick={() => setError(null)}
             position="absolute"
             right="8px"
             top="8px"
