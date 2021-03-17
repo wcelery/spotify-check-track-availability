@@ -26,25 +26,15 @@ interface IData {
   expires_in: number;
 }
 
-/* export type TArtists = {
-  name: string;
-}; */
-
-/* export type TDetails = {
-  artists: TArtists[];
-  available_markets: Array<string>;
-  name: string;
-}; */
-
 export type TSetDetails = {
   setDetails: Dispatch<
     SetStateAction<SpotifyApi.SingleTrackResponse | undefined>
   >;
 };
 
-export interface IDetailsProp {
+export type IDetailsProp = {
   details: SpotifyApi.SingleTrackResponse | undefined;
-}
+};
 
 function App() {
   const [details, setDetails] = useState<SpotifyApi.SingleTrackResponse>();
