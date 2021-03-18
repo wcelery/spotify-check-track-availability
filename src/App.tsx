@@ -26,13 +26,13 @@ interface IData {
   expires_in: number;
 }
 
-export type TSetDetails = {
+export interface TSetDetails {
   setDetails: Dispatch<
     SetStateAction<SpotifyApi.SingleTrackResponse | undefined>
   >;
 };
 
-export type IDetailsProp = {
+export interface IDetailsProp {
   details: SpotifyApi.SingleTrackResponse | undefined;
 };
 
